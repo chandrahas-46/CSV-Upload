@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/home.css">
+
+<div class="container-fluid mb-5">
+    <div class="row mb-3">
+        <div class="col-md-12" style="background-color: lightgray">
+            <h2 class="text-center fw-bold text-danger text-decoration-underline ">CSV Upload</h2>
+        </div>
+    </div>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="col-6 mx-auto text-center" style="background-color: #92dbc1">
+        <input type="file" id="file-upload" name="csv" required>
+        <button type="submit" class="btn btn-success m-auto">Submit</button>  
+    </form>
+
+    <% console.log("Length of mongodb databse collections: ", files.length); %>
+    <% for(let i = 0; i < files.length; i++) { %>
+        <div class="uploaded-files mx-auto">
+        <ul>
+            <a href="/csv/<%= files[i]._id %>"><%= files[i].filename %></a>
+            <a href="/delete/<%= files[i]._id %>"><i class="fas fa-trash text-danger"></i></a>
+        </ul> 
+        </div>
+        
+    <% } %>
+  
+</div>
+
+

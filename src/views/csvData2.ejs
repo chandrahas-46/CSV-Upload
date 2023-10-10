@@ -1,0 +1,73 @@
+
+<link rel="stylesheet" href="/css/table.css">
+
+    <h1>CSV File Information</h1>
+    <label for="search">Search:</label>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <table id="csvTable">
+        <thead>
+            <tr>
+                <% for (const header of keys) { %>
+                    <th>
+                        <span><%= header %></span>
+                        <button onclick="sortTable('<%= keys.indexOf(header) %>')">Sort</button>
+                    </th>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const row of results) { %>
+                <tr>
+                    <% for (const cell of row) { %>
+                        <td><%= cell %></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <script>
+        const table = document.getElementById('csvTable');
+        let ascending = true;
+
+        function sortTable(columnIndex) {
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                const aValue = a.querySelectorAll('td')[columnIndex].textContent;
+                const bValue = b.querySelectorAll('td')[columnIndex].textContent;
+
+                if (ascending) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(row => tbody.appendChild(row));
+            ascending = !ascending;
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+            rows.forEach(row => {
+                const nameCell = row.querySelectorAll('td')[0];
+                const name = nameCell.textContent.toLowerCase();
+
+                if (name.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+

@@ -1,0 +1,33 @@
+.uploaded-files {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  background-color: whitesmoke;
+  padding: 20px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  gap: 1.5rem;
+  width: 50%;
+}
+
+.uploaded-files ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.uploaded-files ul a {
+  text-decoration: none;
+  color: #0044d4;
+}
+
+@media only screen and (max-width: 600px) {
+  .uploaded-files {
+    font-size: 1.2rem;
+    width: 80%;
+  }
+}
