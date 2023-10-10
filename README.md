@@ -14,11 +14,11 @@ It is built using HTML, CSS, Javascript, Bootstrap, Node.js, Express.js, and Mon
   - There is a validation on the front end and server side on being able to upload only csv type of files
   - Pagination of the data displayed in the table to a max of 100 records per page
 
-## Packages dependencies :<br />
-  - express<br/>
-  - ejs<br/>
-  - express-ejs-layouts <br/>
-  - dotenv<br/>
-  - mongoose<br/>
-  - multer <br/>
-  - papaparse <br />
+## Packages dependencies :
+  - express
+  - ejs
+  - express-ejs-layouts
+  - dotenv
+  - mongoose
+  - multer
+  - papaparse
