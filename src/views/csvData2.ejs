@@ -1,73 +1,39 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!-- Bootstrap core JavaScript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
-<link rel="stylesheet" href="/css/table.css">
-
-    <h1>CSV File Information</h1>
-    <label for="search">Search:</label>
-    <input type="text" id="searchInput" placeholder="Search...">
-    <table id="csvTable">
-        <thead>
+<div class="container">
+    <h2> <%= file %></h2>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      
+    <thead>
+        <tr>         
+          <% for(let i = 0; i < keys.length; i++ ) {%>
+            <th><%= keys[i] %></th>
+          <% } %>
+        </tr>
+    </thead>
+    <tbody>         
+        <% for(let k = 1; k < results.length;k++){ %>
+            <% var ans = results[k] %>
             <tr>
-                <% for (const header of keys) { %>
-                    <th>
-                        <span><%= header %></span>
-                        <button onclick="sortTable('<%= keys.indexOf(header) %>')">Sort</button>
-                    </th>
+                <% for(let j = 0; j < keys.length; j++){ %>
+                    <td><%= ans[j] %></td>
                 <% } %>
             </tr>
-        </thead>
-        <tbody>
-            <% for (const row of results) { %>
-                <tr>
-                    <% for (const cell of row) { %>
-                        <td><%= cell %></td>
-                    <% } %>
-                </tr>
-            <% } %>
-        </tbody>
-    </table>
 
-    <script>
-        const table = document.getElementById('csvTable');
-        let ascending = true;
+        <% } %>
+    </tbody>   
+</table>
+</div>
 
-        function sortTable(columnIndex) {
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-
-            rows.sort((a, b) => {
-                const aValue = a.querySelectorAll('td')[columnIndex].textContent;
-                const bValue = b.querySelectorAll('td')[columnIndex].textContent;
-
-                if (ascending) {
-                    return aValue.localeCompare(bValue);
-                } else {
-                    return bValue.localeCompare(aValue);
-                }
-            });
-
-            while (tbody.firstChild) {
-                tbody.removeChild(tbody.firstChild);
-            }
-
-            rows.forEach(row => tbody.appendChild(row));
-            ascending = !ascending;
-        }
-
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase();
-            const rows = Array.from(table.querySelectorAll('tbody tr'));
-
-            rows.forEach(row => {
-                const nameCell = row.querySelectorAll('td')[0];
-                const name = nameCell.textContent.toLowerCase();
-
-                if (name.includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
+<!-- Table and Searching functionality -->
+<script >
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
